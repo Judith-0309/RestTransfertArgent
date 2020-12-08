@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import sn.TransfertAngular.dao.IEmetteur;
 import sn.TransfertAngular.entities.Emetteur;
-import sn.TransfertAngular.entities.Recepteur;
+
 
 
 
@@ -22,19 +22,18 @@ public class EmetteurService {
 	@RequestMapping(value="/emetteurs" , method = RequestMethod.GET)
 	public List<Emetteur>getAll(){
 		return emetteurdao.findAll();
-		
 	}
 	
 	@RequestMapping(value="/emetteurs/update/{id}", method = RequestMethod.PUT)
-	public List<Emetteur> update(@PathVariable int idE,Recepteur em){
-		em.setIdR(idE);
+	public List<Emetteur> update(@PathVariable int idE,Emetteur em){
+		em.setIdE(idE);
 		emetteurdao.save(em);
 		return emetteurdao.findAll();
 	}
 	
 	
 	@RequestMapping(value="/emetteurs/save", method = RequestMethod.POST)
-	public List<Emetteur> save(Recepteur em){
+	public List<Emetteur> save(Emetteur em){
 		emetteurdao.save(em);
 	return emetteurdao.findAll();
 		

@@ -7,19 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import sn.TransfertAngular.entities.Emetteur;
+
 import sn.TransfertAngular.entities.Recepteur;
 
 
 
-
-@Repository
-public interface IRecepteur{
+public interface IRecepteur extends JpaRepository<Recepteur, Integer>{
 	
-	@Query("select r from Recepteur p where r.idE=:idR")
-	public Recepteur getById(@Param("idR") int idR);
-
-	public void save(Recepteur r);
+	@Query("select p from Recepteur p where p.idR=?1")
+	public Recepteur getById(int idR);
 
 	public void delete(Recepteur byId);
 

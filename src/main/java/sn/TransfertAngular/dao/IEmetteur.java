@@ -1,5 +1,7 @@
 package sn.TransfertAngular.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,12 +12,13 @@ import sn.TransfertAngular.entities.Recepteur;
 
 
 
-
-@Repository
 public interface IEmetteur extends JpaRepository<Emetteur, Integer>{
+	
 
-	@Query("select em from Emetteur em where em.idE=:id")
-	public Emetteur getById(@Param("idE") int idE);
+	@Query("select em from Emetteur em where em.idE=?1")
+	public Emetteur getById(int idE);
+	
+	public void delete(Emetteur byId);
 
-	public void save(Recepteur em);
+	public List<Emetteur>findAll();
 }

@@ -1,5 +1,9 @@
 package sn.TransfertAngular.dao;
 
-public interface IEnvoi {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import sn.TransfertAngular.entities.Envoi;
+
+public interface IEnvoi extends JpaRepository<Envoi, Integer> {
+	
 }

@@ -23,7 +23,6 @@ public class RecepteurService {
 	@RequestMapping(value="/recepteurs" , method = RequestMethod.GET)
 	public List<Recepteur>getAll(){
 		return recepteurdao.findAll();
-		
 	}
 	
 	@RequestMapping(value="/recepteurs/update/{id}", method = RequestMethod.PUT)
@@ -38,18 +37,14 @@ public class RecepteurService {
 	public List<Recepteur> save(Recepteur r){
 		recepteurdao.save(r);
 	return recepteurdao.findAll();
-		
 	}
 	
 	@RequestMapping(value="/recepteurs/delete/{id}", method = RequestMethod.DELETE)
 	public List<Recepteur> delete(@PathVariable int idR){
 		if (recepteurdao.getById(idR) != null) {
 			recepteurdao.delete(recepteurdao.getById(idR));
-		
 		}
 		return recepteurdao.findAll();
-		
-		
 	}
 	
 	

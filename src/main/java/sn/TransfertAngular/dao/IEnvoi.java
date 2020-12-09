@@ -16,7 +16,6 @@ public interface IEnvoi extends JpaRepository<Envoi, Integer> {
 	
 	
 	
-	
 	@Query("select ev from Envoi ev where ev.id=?1")
 	public Envoi getById(int id);
 	

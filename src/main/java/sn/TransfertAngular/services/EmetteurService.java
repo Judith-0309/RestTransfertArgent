@@ -3,7 +3,11 @@ package sn.TransfertAngular.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +29,7 @@ public class EmetteurService {
 		return emetteurdao.findAll();
 	}
 	
-	@RequestMapping(value="/emetteurs/update/{id}", method = RequestMethod.PUT)
+	@PutMapping(value="/emetteurs/update/{id}")
 	public List<Emetteur> update(@PathVariable int idE,Emetteur em){
 		em.setIdE(idE);
 		emetteurdao.save(em);
@@ -33,19 +37,18 @@ public class EmetteurService {
 	}
 	
 	
-	@RequestMapping(value="/emetteurs/save", method = RequestMethod.POST)
-	public List<Emetteur> save(Emetteur em){
+	@PostMapping(value="/emetteurs/save")
+	public List<Emetteur> save(@RequestBody  Emetteur em){
 		emetteurdao.save(em);
 	return emetteurdao.findAll();
 		
 	}
 	
-	@RequestMapping(value="/emetteurs/delete/{id}", method = RequestMethod.DELETE)
-	public List<Emetteur> delete(@PathVariable int idE){
-		if (emetteurdao.getById(idE) != null) {
-			emetteurdao.delete(emetteurdao.getById(idE));
+	@DeleteMapping(value="/emetteurs/delete/{id}")
+	public List<Emetteur> delete(@PathVariable("id") int idE){
+
+		emetteurdao.deleteById(idE);	
 		
-		}
 		return emetteurdao.findAll();
 		
 		

@@ -5,14 +5,17 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import sn.TransfertAngular.dao.IEmetteur;
 import sn.TransfertAngular.dao.IEnvoi;
-
+import sn.TransfertAngular.dao.IRecepteur;
 import sn.TransfertAngular.entities.Envoi;
 
 
@@ -24,6 +27,10 @@ public class EnvoiService {
 	
 	@Autowired
 	private IEnvoi envoidao;
+	@Autowired
+	 private IEmetteur emetteurdao;
+	 @Autowired
+	 private IRecepteur recepteurdao;
 	
 	@RequestMapping(value="/envois" , method = RequestMethod.GET)
 	public List<Envoi>getAll(){
@@ -37,7 +44,7 @@ public class EnvoiService {
 		return envoidao.getAllllll(id);
 	}
 	
-	@RequestMapping(value="/envois/update/{id}", method = RequestMethod.PUT)
+	@PutMapping(value="/envois/update/{id}")
 	public List<Envoi> update(@PathVariable int id,Envoi ev){
 		ev.setId(id);
 		envoidao.save(ev);
@@ -45,19 +52,20 @@ public class EnvoiService {
 	}
 	
 	
-	@RequestMapping(value="/envois/save", method = RequestMethod.POST)
-	public List<Envoi> save(Envoi ev){
+	@PostMapping(value="/envois/save")
+	public List<Envoi> save(@RequestBody  Envoi ev){
+	     emetteurdao.save(ev.getEmetteur());
+	     recepteurdao.save(ev.getRecepteur());
 		envoidao.save(ev);
+		
 	return envoidao.findAll();
 		
 	}
 	
 	@RequestMapping(value="/envois/delete/{id}", method = RequestMethod.DELETE)
-	public List<Envoi> delete(@PathVariable int id){
-		if (envoidao.getById(id) != null) {
-			envoidao.delete(envoidao.getById(id));
+	public List<Envoi> delete(@PathVariable ("id")  int id){
+		envoidao.deleteById(id);	
 		
-		}
 		return envoidao.findAll();
 		
 		
